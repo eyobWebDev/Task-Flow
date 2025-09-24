@@ -5,6 +5,10 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import {app, server } from "./config/socket.js"
 import path from "path"
+import authRouter from "./routes/auth.routes.js"
+import workspaceRouter from "./routes/workspace.routes.js"
+import projectRouter from "./routes/project.routes.js"
+import taskRouter from "./routes/task.routes.js"
 
 config()
 
@@ -24,6 +28,12 @@ if(process.env.NODE_ENV == "production"){
         res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
     })
 }
+
+app.use("/api/auth", authRouter)
+app.use("/api/workspace", workspaceRouter)
+app.use("/api/project", projectRouter)
+app.use("/api/task", taskRouter)
+
 
 
 server.listen(process.env.PORT, () => {
