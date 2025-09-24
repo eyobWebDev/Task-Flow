@@ -1,0 +1,81 @@
+
+.navbar-container-dark {
+    background-color: rgba(255, 255, 255, .1);
+}
+.navbar-container-light {
+    background-color: rgba(0, 0, 0, .1);
+    position: static;
+}
+.navbar-title {
+    letter-spacing: 2.5px;
+    background: linear-gradient(90deg, #00a9f2, #787cfe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+.text-gradient {
+    letter-spacing: 2.5px;
+    background: linear-gradient(90deg, #00a9f2, #787cfe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: bolder;
+}
+
+.navbar-link {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.home-page {
+    background-blend-mode: hue;
+    overflow: hidden;
+    scrollbar-width: 0;
+    position: relative;
+}
+.home-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, #03106e, transparent 60%), radial-gradient(circle at bottom right, #4000c0, transparent 60%);
+    filter: blur(100px);
+    z-index: -1;
+}
+
+.cta-btn {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: #4000c0;
+}
+.feature-card-element {
+    padding: 20px;
+    border-radius: 10px;
+    transition: all .5s;
+}
+.feature-card-element:hover {
+    scale: 1.05;
+
+}
+.feature-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: x-large;
+    font-weight: bold;
+}
+.feature-card-description {
+    font-weight: lighter;
+    letter-spacing: 1px;
+}
+
+.scale-btn {
+    transition: all .5s;
+}
+.scale-btn:hover {
+    scale: 1.1;
+}

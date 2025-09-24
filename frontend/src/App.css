@@ -1,42 +1,102 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+html[data-theme="dark"] {
+    
+    .tras-bg {
+        background: rgba(255, 255, 255, .06);
+    }
+     .tras-bg-100 {
+        background: rgba(255, 255, 255, .1);
+    }
+    .tras-bg-hover:hover {
+        background: rgba(255, 255, 255, .07);
+    }
+
+    .text-muted {
+        color: hsl(0, 0%, 70%);
+    }
+    .bg-light-100 {
+        background: hsl(0, 0%, 10%);
+    }
+    .bg-light-150 {
+        background: hsl(0, 0%, 15%);
+    }
+    .bg-light-200 {
+            background: hsl(0, 0%, 20%);
+        }
+    .bg-light-300 {
+            background: hsl(0, 0%, 30%);
+        }
+    .bg-light-400 {
+            background: hsl(0, 0%, 40%);
+        }
+    .bg-light-500 {
+            background: hsl(0, 0%, 50%);
+    }
+    .bg-light-400-hover:hover {
+            background: hsl(0, 0%, 40%);
+        }
+    .bg-light-500-hover:hover {
+            background: hsl(0, 0%, 50%);
+    }
+    .text-light-300 {
+            color: hsl(0, 0%, 70%);
+        }
+    .text-light-100 {
+            color: hsl(0, 0%, 90%);
+        }
+    .text-light-200 {
+            color: hsl(0, 0%, 80%);
+        }
+    .text-light-400 {
+            color: hsl(0, 0%, 40%);
+        }
+    .text-light-500 {
+            color: hsl(0, 0%, 50%);
+    }
+
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+html[data-theme="light"] {
+    .tras-bg {
+        background: rgba(255, 255, 255, .06);
+    }
+    .tras-bg-hover:hover {
+        background: rgba(255, 255, 255, .07);
+    }
+    .text-muted {
+        color: hsl(0, 0%, 30%);
+    }
+    .bg-light-100 {
+        background: hsl(0, 0%, 90%);
+    }
+    .bg-light-200 {
+            background: hsl(0, 0%, 80%);
+        }
+    .bg-light-300 {
+            background: hsl(0, 0%, 70%);
+        }
+    .bg-light-400 {
+            background: hsl(0, 0%, 50%);
+    }
+    .bg-light-500 {
+            background: hsl(0, 0%, 40%);
+    }
+    .bg-light-400-hover:hover {
+            background: hsl(0, 0%, 50%);
+    }
+    .bg-light-500-hover:hover {
+            background: hsl(0, 0%, 40%);
+    }
+    .text-light-300 {
+            color: hsl(0, 0%, 70%);
+        }
+    .text-light-400 {
+            color: hsl(0, 0%, 50%);
+    }
+    .text-light-100 {
+            color: hsl(0, 0%, 30%);
+    }
+    .text-light-500 {
+            color: hsl(0, 0%, 40%);
+    }
+    
 }
