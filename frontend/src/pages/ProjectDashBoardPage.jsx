@@ -5,7 +5,7 @@ import ProjectsListView from "@/features/project/ProjectsListView";
 import RecentActivitiesListView from "@/features/workspace/RecentActivitiesListView";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Routes, Route, NavLink } from "react-router-dom";
-import WorkspaceLeftMenuBar from "@/features/workspace/WorkSpaceLeftMenuBar.js";
+import WorkspaceLeftMenuBar from "@/features/workspace/WorkspaceLeftMenuBar";
 import WorkspaceNavBar from "@/layouts/feature/WorkspaceNavBar";
 import ProjectHeader from "@/layouts/feature/ProjectHeader";
 import WorkspaceNavbarRightElement from "@/features/workspace/WorkspaceNavbarRightElement";
