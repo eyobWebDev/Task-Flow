@@ -13,7 +13,10 @@ import taskRouter from "./routes/task.routes.js"
 config()
 
 app.use(cors({
-    origin: "https://task-flow-hiy531nmx-full-stack-web-dev.vercel.app/",
+    origin:  [
+  "http://localhost:5173", 
+  "https://task-flow-hiy531nmx-full-stack-web-dev.vercel.app"
+],
     credentials: true
 }))
 app.use(cookieParser())
