@@ -22,6 +22,8 @@ export default function CreateProjectForm(){
 console.log(authUser);
 
     const handleSubmit =async (e) => {
+        console.log("submitted create project");
+        
         e.preventDefault()
         if(!name) return errorToaster("You cannot create project without name", "", "X")
 
