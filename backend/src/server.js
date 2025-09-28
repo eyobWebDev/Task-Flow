@@ -15,7 +15,7 @@ config()
 app.use(cors({
     origin:  [
   "http://localhost:5173", 
-  "https://task-flow-hiy531nmx-full-stack-web-dev.vercel.app"
+  "https://task-flow-red-pi.vercel.app"
 ],
     credentials: true
 }))
