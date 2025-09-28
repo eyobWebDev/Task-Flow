@@ -10,6 +10,9 @@ import { Button } from "@/components/ui/button";
 
 export default function ProjectsListView(){
     const {projects} = useProjectStore()
+
+    console.log("projects", projects);
+    
     
 
     return <div className="lg:pl-8 lg:pt-5 pt-2 grid lg:grid-cols-2 grid-cols-1 lg:pr-10 pl-2 gap-5 pr-2">
