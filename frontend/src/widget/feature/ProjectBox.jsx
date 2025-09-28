@@ -22,6 +22,9 @@ export default function ProjectBox({project}) {
     const {updateLastActive} = useAuthStore()
     const {authUser} = useAuthStore()
     const user = project.members.find(member => member.userId.username == authUser.username)
+
+    console.log(project);
+    
     
     
     return<div className="h-80 hover:cursor-pointer shadow bg-light-100 p-2 justify-between flex flex-col rounded-xl">
