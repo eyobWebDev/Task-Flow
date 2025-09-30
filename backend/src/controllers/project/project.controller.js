@@ -58,10 +58,10 @@ export const getMyProjects = async (req, res) => {
             path: "tasks",
             populate: [
             {path: "assignee", select: "username email profilePic fullName"},
-            { path: "activity.user", select: "username email profilePic, fullName" }
+            { path: "activity.user", select: "username email profilePic fullName" }
             ]
         });
-
+        console.log("projects", project);
         res.status(200).json(project)         
     } catch (e) {
         console.log("Error in getting my projects", e.message)
