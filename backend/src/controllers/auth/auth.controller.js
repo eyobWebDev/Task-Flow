@@ -53,7 +53,8 @@ export const login = async (req, res) => {
 }
 
 export const checkAuth = async (req, res) => {
-    try{      
+    try{ 
+        console.log("checking auth", req.user);
         const user = await User.findById(req.user._id).populate({path: "lastActiveWorkspace", populate: [
             {path: "owner", select: "username email profilePic fullname"},
             {path: "members.user", select: "username email profilePic fullname"}
@@ -64,6 +65,8 @@ export const checkAuth = async (req, res) => {
             {path: "invitedBy", select: "username email profilePic fullname"},
             {path: "projectId", select: "name milestones tasks members"},
         ]})
+        console.log("auth checked: auth user", user);
+
                 
         res.status(200).json(user)
     } catch (e){
