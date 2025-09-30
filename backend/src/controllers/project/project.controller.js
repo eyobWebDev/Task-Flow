@@ -61,6 +61,7 @@ export const getMyProjects = async (req, res) => {
             { path: "activity.user", select: "username email profilePic, fullName" }
             ]
         });
+        console.log("projects", project)
 
         res.status(200).json(project)         
     } catch (e) {
