@@ -49,7 +49,7 @@ export const editProject = async (req, res) => {
 }
 
 export const getMyProjects = async (req, res) => {
-    const {workspaceId} = req.query
+    const {workspaceId} = req.body
     
     try {
         const project = await Project.find({workspaceId}).populate({ path: "createdBy", select: "username fullName profilePic email" })
