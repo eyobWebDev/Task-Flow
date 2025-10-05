@@ -12,12 +12,12 @@ import { useProjectStore } from "@/store/useProjectStore";
 export default function WorkspaceBox({workspace}){
     const {setSelectedWorkspace} = useWorkspaceStore()
     const {updateLastActive} = useAuthStore()
-    const {getProjects} = useProjectStore()
+    const {getWorkspaceProjects} = useProjectStore()
     const navigate = useNavigate()
 
     const handleClick = async () => {
         setSelectedWorkspace(workspace)
-        getProjects()
+        getWorkspaceProjects(workspace._id)
         navigate(`/workspace/${workspace._id}/projects`)
         await updateLastActive({workspaceId: workspace._id})
     }

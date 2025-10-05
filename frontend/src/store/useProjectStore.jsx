@@ -72,6 +72,19 @@ export const useProjectStore = create(persist((set, get) => ({
             set({isGettingProject: false})
         } 
     },
+    getWorkspaceProjects: async (workspaceId) => {
+        //to get all projects the workspace belongs to
+        set({isGettingProject: true})
+        try {
+            const res = await Axios.post(`/api/project/my-projects`, {workspaceId})
+            
+            set({projects: res.data})
+        } catch (e) {
+            console.log("Error in getting Workspaces", e)
+        } finally {
+            set({isGettingProject: false})
+        } 
+    },
 
     deleteProject: async (projectId) => {
         try {
