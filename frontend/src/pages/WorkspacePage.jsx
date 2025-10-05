@@ -9,18 +9,20 @@ import { NavLink } from "react-router-dom";
 
 
 export default function WorkspacePage(){
-    const {isGettingWorkspaces, getWorkspaces, currentBadge, myWorkspaces} = useWorkspaceStore()
+    const {isGettingWorkspaces, getWorkspaces, currentBadge, myWorkspaces, isCreatingWorkspace} = useWorkspaceStore()
     console.log(myWorkspaces);
     
 
     useEffect(() => {
         getWorkspaces()
     }, [])
+
+
     const style = currentBadge == "Grid" ? "grid lg:p-10 p-4 grid-cols-1 lg:grid-cols-3 md:grid-cols-2" : "flex lg:p-10 p-4 flex-col"
     
     return <>
         <WorkspaceHeader />
-        { isGettingWorkspaces ? <SpinAnimate text={`Getting Workspaces...`} />
+        { isGettingWorkspaces || isCreatingWorkspace ? <SpinAnimate text={`Getting Workspaces...`} />
          :
             <div className={`${style} gap-5`}>
                 

@@ -16,8 +16,10 @@ export default function WorkspaceForm(){
         e.preventDefault()
         if(!name) return errorToaster("You cannot create workspace without name", "", "X")
 
-        await createWorkspace({name, description})
         navigate(`/workspace/${selectedWorkspace._id}/projects`)
+        
+        await createWorkspace({name, description})
+        
     }
 
     return <form onSubmit={handleSubmit} className="flex flex-col gap-4">
