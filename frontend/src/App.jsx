@@ -17,17 +17,20 @@ import { useWorkspaceStore } from './store/useWorkspaceStore'
 import CreateWorkspaceForm from './features/workspace/CreateWorkspacePage'
 import ProjectDashBoardPage from './pages/ProjectDashBoardPage'
 import CreateProjectPage from './features/project/CreateProjectDialog'
+import { useProjectStore } from './store/useProjectStore'
 
 
 
 function App() {
   const {checkAuth, logout, isCheckingAuth, isLoggingOut, authUser} = useAuthStore()
   const {selectedWorkspace, getWorkspaces} = useWorkspaceStore()
+  const {getProjects} = useProjectStore()
   const navigate = useNavigate()
 
   useEffect(() => {
       checkAuth()      
       getWorkspaces()
+      getProjects()
       
       if(authUser?.lastActiveProject) localStorage.setItem("lastActiveProject", authUser.lastActiveProject)
       if(authUser?.lastActiveWorkspace) localStorage.setItem("lastActiveWorkspace", authUser.lastActiveWorkspace)

@@ -30,7 +30,7 @@ export default function ProjectDashBoardPage(){
 
     useEffect(() => {
         getProjects()
-    }, [])
+    }, [selectedWorkspace])
 
     return <div className="h-screen flex w-full">
         <WorkspaceLeftMenuBar />
