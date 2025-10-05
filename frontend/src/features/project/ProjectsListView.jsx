@@ -14,7 +14,7 @@ export default function ProjectsListView(){
 
     console.log("projects", projects);
     if(isGettingProject){
-        return <SpinAnimate text={`Getting allthe projects...`} />
+        return <SpinAnimate text={`Getting all the projects...`} />
     }
 
     return <div className="lg:pl-8 lg:pt-5 pt-2 grid lg:grid-cols-2 grid-cols-1 lg:pr-10 pl-2 gap-5 pr-2">

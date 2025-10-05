@@ -6,15 +6,18 @@ import { Badge } from "@/components/ui/badge";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useProjectStore } from "@/store/useProjectStore";
 
 
 export default function WorkspaceBox({workspace}){
     const {setSelectedWorkspace} = useWorkspaceStore()
     const {updateLastActive} = useAuthStore()
+    const {getProjects} = useProjectStore()
     const navigate = useNavigate()
 
     const handleClick = async () => {
         setSelectedWorkspace(workspace)
+        getProjects()
         navigate(`/workspace/${workspace._id}/projects`)
         await updateLastActive({workspaceId: workspace._id})
     }
