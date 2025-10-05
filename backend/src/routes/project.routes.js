@@ -7,7 +7,7 @@ import { acceptOrDeclineInvitations, getAllInvitations, inviteMember, removeMemb
 const router = express.Router()
 
 router.post("/create", protectedRoute, createProject)
-router.get("/my-projects", protectedRoute, getMyProjects)
+router.post("/my-projects", protectedRoute, getMyProjects)
 router.post("/delete", protectedRoute, deleteProject)
 router.post("/edit", protectedRoute, editProject)
 router.post("/milestone/add", protectedRoute, addMilestone)
