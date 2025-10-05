@@ -28,7 +28,7 @@ console.log(authUser);
         if(!name) return errorToaster("You cannot create project without name", "", "X")
 
         await createProject({name, description, workspaceId: authUser.lastActiveWorkspace._id})
-        navigate(`/workspace/${authUser.lastActiveWorkspace._id}/projects/${selectedProject?._id}`)
+        navigate(`/workspace/${authUser.lastActiveWorkspace._id}/projects`)
     }
 
     return <form onSubmit={handleSubmit} className="flex flex-col gap-4">
