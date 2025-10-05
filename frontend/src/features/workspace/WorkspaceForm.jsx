@@ -16,9 +16,8 @@ export default function WorkspaceForm(){
         e.preventDefault()
         if(!name) return errorToaster("You cannot create workspace without name", "", "X")
 
-        navigate(`/workspace/${selectedWorkspace._id}/projects`)
-        
         await createWorkspace({name, description})
+        navigate(`/workspace/${selectedWorkspace._id}/projects`)
         
     }
 
