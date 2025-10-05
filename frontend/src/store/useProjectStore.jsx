@@ -48,6 +48,7 @@ export const useProjectStore = create(persist((set, get) => ({
         try {
             const res = await Axios.post("/api/project/edit", data)
             successToaster("Project edited Succesfully!", "", "X")
+            set({projects: projects.filter(project => project._id != res.data._id)})
             set({projects: [...get().projects, res.data]})
             set({selectedProject: res.data})
         } catch (e) {

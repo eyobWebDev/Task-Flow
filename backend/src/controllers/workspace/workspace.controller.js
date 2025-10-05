@@ -26,6 +26,7 @@ export const createWorkspace = async (req, res) => {
 export const getMyWorkspace = async (req, res) => {
     
     try {
+        console.log("req.user", req.user);
         const workspace = await Workspace.find({owner: req.user._id}).populate("owner", "username fullName profilePic email")
         .populate("members.user", "username fullName profilePic email")
         
