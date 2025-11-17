@@ -6,13 +6,15 @@ import { FormatDate, FormatDateShort } from "@/utils/FormatDate";
 import CustomTooltip from "@/widget/CustomTooltip";
 import MyProfileInfoBox from "@/widget/feature/MyProfileInfoBox";
 import MyProfileSmallInfoBox from "@/widget/feature/MyProfileSmallInfoBox";
-import { Edit, ImagePlus, User } from "lucide-react";
+import { Edit, ImagePlus, Trash2, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function MyProfile(){
     const {authUser, onlineUsers} = useAuthStore()
     const {myWorkspaces} = useWorkspaceStore()
     const {projects} = useProjectStore()
+    const navigate = useNavigate()
 
     return <div className="p-5 lg:pl-10 pl-3 flex text-blue-100 flex-col lg:gap-10 gap-3">
 
@@ -70,7 +72,11 @@ export default function MyProfile(){
                         <MyProfileInfoBox title={`Joined At`} description={FormatDateShort(authUser.createdAt) || ""} />
                         <MyProfileInfoBox title={`Last Login`} description={FormatDateShort(authUser.updatedAt) || ""} />
                         <MyProfileInfoBox title={`Recent Activity`} description={"No recent activities."} />
-                        <MyProfileInfoBox title={`Change Password`} description={<Button>Change Password</Button>} />
+                        <MyProfileInfoBox title={`Change Password`} description={<button className="btn btn-sm btn-info">Change Password</button>} />
+                        <MyProfileInfoBox title={`Log Out`} 
+                        description={<button onClick={() => navigate(`/auth/logout`)} variant={`error`} className={`btn btn-xs btn-error`}>
+                            <div className="flex items-center w-full h-full gap-3"><Trash2 size={15} /> <div>Log out</div></div>
+                        </button>} />
                     </div>
                 </div>
 
