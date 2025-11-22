@@ -38,28 +38,32 @@ export default function OverviewTab(){
     return <div className="flex text-blue-100 flex-col gap-5">
         
         {/* header section */}
-        <div className="flex justify-between items-center">
-            <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-3">
-                    <div className="text-2xl font-semibold">{selectedProject.name || "Project name"}</div> 
-                    <StatusBadge color={color} status={selectedProject.status} />
+        <div className="flex justify-between rounded p-3 bg-base-300">
+
+            {/* project name and info */}
+            <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-3">
+                        <div className="text-2xl font-semibold">{selectedProject.name || "Project name"}</div> 
+                        <StatusBadge color={color} status={selectedProject.status} />
+                    </div>
+                    <div className="lg:text-[11px] text-[8px] opacity-60 text-blue-200 flex gap-4 items-center">
+                        <div>Created by: {selectedProject.createdBy.username}</div>
+                        <div>Last Updated: {FormatDateRelative(selectedProject.updatedAt)}</div>
+                        <div>Visibility: {selectedProject.visibility}</div>
+                    </div>
                 </div>
-                <div className="lg:text-xs text-[10px] opacity-60 text-blue-200 flex gap-4 items-center">
-                    <div>Created by: {selectedProject.createdBy.username}</div>
-                    <div>Last Updated: {FormatDateRelative(selectedProject.updatedAt)}</div>
-                    <div>Visibility: {selectedProject.visibility}</div>
+
+                {/* description section */}
+                <div className="text-sm opacity-85">
+                    {selectedProject.description}
                 </div>
             </div>
 
-            <div className="flex items-center gap-2">
-                <EditProjectDrawer trigger={<CustomTooltip trigger={<Edit className="p-1 tras-bg-hover rounded" />} text={'Edit project'} />} />
-                <CustomTooltip trigger={<ArchiveRestore className="p-1 tras-bg-hover rounded" />} text={'Archive project'} />
+            <div className="flex gap-3">
+                <div className=""><EditProjectDrawer trigger={<CustomTooltip trigger={<Edit className="p-1 tras-bg-hover rounded" />} text={'Edit project'} />} /></div>
+                <div><CustomTooltip trigger={<ArchiveRestore className="p-1 tras-bg-hover rounded" />} text={'Archive project'} /></div>
             </div>
-        </div>
-
-        {/* description section */}
-        <div className="text-sm text-muted">
-            {selectedProject.description}
         </div>
 
         {/* Summary card section */}
@@ -83,7 +87,7 @@ export default function OverviewTab(){
             rightIcon={<CreateMilestoneDialog trigger={<PlusSquare size={25} className="p-1 rounded tras-bg-hover hover:cursor-pointer" />} />}
             label={`Milestone`}
             primaryInfo={`Total ${selectedProject.milestones.length}`}
-            secondaryInfo={selectedProject.milestones.length > 0 && <><li>{selectedProject.milestones.length - completedMilestone.length} Upcoming</li><li>{completedMilestone.length} Completed</li></>}
+            secondaryInfo={selectedProject.milestones.length > 0 && <div className="pl-3"><li>{selectedProject.milestones.length - completedMilestone.length} Upcoming</li><li>{completedMilestone.length} Completed</li></div>}
             elements={<div className="flex gap-2 text-xs w-full items-center">
                 <div className="flex gap-2">{completedMilestone.length || 0}/{selectedProject?.milestones.length}</div>
                 <Progress className={``} value={milestoneProgressValue} />
@@ -114,7 +118,7 @@ export default function OverviewTab(){
         </div>
 
         {/* Recent activity and milestone stats */}
-        <div className="grid p-2 gap-10 lg:w-2/3 w-full text-blue-200 lg:grid-cols-2 grid-cols-1">
+        <div className="grid gap-5 w-full text-blue-200 lg:grid-cols-2 grid-cols-1">
 
             {/* Milestone area */}
             <ActivityCard icon={<Milestone size={15} />} title={`Milestone preview`} items={
