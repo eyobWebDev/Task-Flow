@@ -52,7 +52,7 @@ export default function ProjectDashBoardPage(){
                 <Route path="/:projectId" element={<ScrollArea className={`h-[100vh] w-full`}>
                     <WorkspaceNavBar rightElement={
                         <div className="flex items-center gap-2">
-                            <NavLink to={`/workspace/${selectedWorkspace._id}/projects/invitations`} className="relative p-1 rounded bg-light-400-hover"><Bell size={20} className="" /> 
+                            <NavLink to={`/workspace/${selectedWorkspace?._id}/projects/invitations`} className="relative p-1 rounded bg-light-400-hover"><Bell size={20} className="" /> 
                                 {invitations.length > 0 && <CustomDot content={invitations.filter(invite => invite.status == "pending" && invite.username == authUser.username).length} />} 
                             </NavLink>
                         </div>

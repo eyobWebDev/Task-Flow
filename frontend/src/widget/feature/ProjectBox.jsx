@@ -1,6 +1,6 @@
 import { Progress } from "@/components/ui/progress";
 import StackedAvatar from "./StackedAvatar";
-import { ArchiveIcon, ArrowUpRightFromSquare, Edit2, FolderOpen, MoreHorizontal, Pin, Trash2 } from "lucide-react";
+import { ArchiveIcon, ArrowUpRightFromSquare, CalendarClock, Edit2, FileClock, FolderOpen, Milestone, MilestoneIcon, MoreHorizontal, Pin, Trash2, User, Users } from "lucide-react";
 import { useProjectStore } from "@/store/useProjectStore";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,70 +22,126 @@ export default function ProjectBox({project}) {
     const {updateLastActive} = useAuthStore()
     const {authUser} = useAuthStore()
     const user = project.members.find(member => member.userId.username == authUser.username)
+    const [progWidth, setprogWidth] = useState(`w-${value}`)
+    const statusStyle = project.status == "active" ? "bg-green-500" : project.status == "on-Hold" ? "bg-orange-500" : project.status == "completed" ? "bg-blue-500" : "bg-gray-500"
+    
+    
+    
+    return<div className="min-h-85 shadow-lg bg-light-200 p-2 justify-between flex flex-col rounded-xl">
 
-    console.log(project);
-    
-    
-    
-    return<div className="h-80 hover:cursor-pointer shadow bg-light-100 p-2 justify-between flex flex-col rounded-xl">
-
-            {/* top and middle */}
-            <div>
+           <div className="flex flex-col gap-2">
                 {/* top section */}
-                <div className="flex justify-between p-3 font-bold">
-                    <div className="flex items-center gap-4">
-                        <FolderOpen size={20} />
-                        <div>{project.name}</div>
+                <div className="flex flex-col gap-2">
+                    <div className="flex bg-light-300 rounded-lg justify-between p-3">
+                        <div className="flex flex-col gap-2">
+                            <div className="flex font-bold items-center gap-3">
+                                <FolderOpen size={20} />
+                                <div>{project.name}</div>
+                            </div>
+                            <div className="opacity-80 text-xs">{project.description}</div>
+                        </div>
+
+                        <CustomMenuBar 
+                        trigger={<MoreHorizontal />}
+                        itemsList={[
+                        [
+                            {title: "Edit project", shortcut: <Edit2 />, callback: () => {
+                                setSelectedProject(project)
+                                setOpenEditProjectDrawer(true)
+                                console.log("from project box",selectedProject.name)
+                            }},
+                            {title: "Pin Project", shortcut: <Pin />},
+                            {title: "Delete Project", shortcut: <Trash2 />, callback: () => setOpenDeleteDialogConsentBox(true)},
+                        ]
+                        ]}
+                        />
                     </div>
-                    <CustomMenuBar 
-                    trigger={<MoreHorizontal />}
-                    itemsList={[
-                    [
-                        {title: "Edit project", shortcut: <Edit2 />, callback: () => {
-                            setSelectedProject(project)
-                            setOpenEditProjectDrawer(true)
-                            console.log("from project box",selectedProject.name)
-                        }},
-                        {title: "Pin Project", shortcut: <Pin />},
-                        {title: "Delete Project", shortcut: <Trash2 />, callback: () => setOpenDeleteDialogConsentBox(true)},
-                    ]
-                    ]}
-                    />
+
+                    {/* info grid */}
+                    <div className="grid grid-cols-3 opacity-80 gap-3">
+                        {/* status */}
+                        <div className="p-1 bg-light-300 shadow rounded drop-shadow-gray-700">
+                            <div className="flex items-center justify-center gap-2">
+                                <div className={`w-3 h-3 ${statusStyle} rounded-full`}></div>
+                                <div className="text-xs font-semibold">{project.status}</div>
+                            </div>
+                        </div>
+
+                        {/* Due date */}
+                        <div className="p-1 bg-light-300 drop-shadow-xs rounded drop-shadow-gray-700">
+                            <div className="flex items-center justify-center gap-2">
+                                <div className=""><CalendarClock size={15} /></div>
+                                <div className="text-xs font-semibold">{project.dueDate ? <div>{project.dueDate}</div> : "No due date!"}</div>
+                            </div>
+                        </div>
+
+                        {/* Updated at */}
+                        <div className="p-1 bg-light-300 drop-shadow-xs rounded drop-shadow-gray-700">
+                            <div className="flex items-center justify-center gap-2">
+                                <div className=""><FileClock size={15} /></div>
+                                <div className="text-xs font-semibold"><div>{FormatDateRelative(project.updatedAt)}</div></div>
+                            </div>
+                        </div>  
+                    </div>
                 </div>
+                
 
                 {/* dialog and drawers*/}
                 <DeleteConsentDialog trigger={""} name={project.name}  />
 
                 {/*  middle section */}
-                <div className="p-3 text-sm flex flex-col gap-2 text-light-200">
-                    <div>{project.description}</div>
-                    <div className="flex gap-4 items-center">Progress <Progress value={value} /> {value}%</div>
-                    <div className="flex gap-4 items-center">Status <Badge variant={`outline`}>{project.status}</Badge></div>
-                    {project.milestone && <div>Next - {project.milestone || ""}</div>}
-                    {project.dueDate && <div>Due date - {project.dueDate}</div>}
-                    <div>Last Updated: {FormatDateRelative(project.updatedAt)}</div>
+                <div className="flex flex-col gap-5">
+                    {/* display next milestone */}
+                    <div className="p-2 w-full drop-shadow-xl pl-3 flex flex-col gap-2 rounded bg-light-300">
+                        <div className="flex opacity-80 items-center gap-2">
+                            <MilestoneIcon size={15} />
+                            <div className="text-xs">Next milestone</div>
+                        </div>
+
+                        <div className="p-1 pl-5 rounded bg-light-400 text-sm">
+                            {project.milestones.length > 0 ? <li className="">{project.milestones[0].title || ""}</li> : "No Milestone!"}
+                        </div>
+                    </div>
+
+                    {/* progress */}
+                    <div className="flex gap-4 items-center">
+                        <div className="w-100 h-5 flex justify-start items-center p-2 drop-shadow-2xl bg-light-300 rounded-2xl">
+                            <div className={`${progWidth} bg-light-500 h-2.5 rounded-2xl`}></div>
+                        </div>
+                        {value}%
+                    </div>
                 </div>
-           </div>
+            </div>
 
             {/* Bottom section */}
-            <div className="flex justify-between">
-                <div className="flex items-center gap-3">           
-                    {project.members  && <><div className="flex items-center gap-3"><div>
-                        <StackedAvatar avatars={
-                        project.members.slice(0, 3).map((member, i) => {  
-                            if(member.userId) return { src: "", alt: member.userId.username[0].toUpperCase() || "" };
-                        })
-                    } /></div>{project.members?.length > 3 && <div>+{project.members?.length-3} more.</div>}</div> </>}
-                    <div>
-                      You :  <Badge className={``} variant={`outline`}>{user.role}</Badge>
+            <div className="flex items-center gap-2">
+
+                {/* members and role */}
+                <div className="flex w-2/3 items-center gap-3">
+                    <div className="flex w-1/2 font-semibold p-1 bg-light-300 justify-start rounded pl-2 text-xs items-center gap-2">
+                        <Users size={15}/>           
+                        <div className="">
+                            {project.members  && <><div className="flex items-center gap-3"><div>
+                                <StackedAvatar size={`small`} avatars={
+                                project.members.slice(0, 3).map((member, i) => {  
+                                    if(member.userId) return { src: "", alt: member.userId.username[0].toUpperCase() || "" };
+                                })
+                            } /></div>{project.members?.length > 3 && <div>+{project.members?.length-3} more.</div>}</div> </>}
+                        </div>
+                    </div>
+
+                    <div className="flex w-1/2 font-semibold p-2 bg-light-300 justify-center rounded pl-2 text-xs items-center gap-2">           
+                        <User size={15} />
+                        <div className="">{user.role}</div>
                     </div>
                 </div>
 
                 <Button onClick={async () => {
-        navigate(`${project?._id}`)
-        setSelectedProject(project)
-        await updateLastActive({projectId: project._id})
-    }} className={`flex gap-3 btn items-center`}>Open <ArrowUpRightFromSquare /></Button>
+                    navigate(`${project?._id}`)
+                    setSelectedProject(project)
+                    await updateLastActive({projectId: project._id})
+                }} className={`flex gap-3 w-1/3 btn btn-active items-center`}>Open <ArrowUpRightFromSquare /></Button>
             </div>
+           
     </div>
 }
