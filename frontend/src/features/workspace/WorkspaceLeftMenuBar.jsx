@@ -16,15 +16,17 @@ import { useNavigate } from "react-router-dom";
 import CreateProjectDialog from "../project/CreateProjectDialog";
 import { useOpenComponentStore } from "@/store/useOpenComponentStore";
 import InviteMemberDialog from "../team/InviteMemberDialog";
+import { useProjectStore } from "@/store/useProjectStore";
 
 export default function WorkspaceLeftMenuBar(){
     const {authUser} = useAuthStore()
     const {selectedWorkspace} = useWorkspaceStore()
+    const {selectedProject} = useProjectStore()
     const {setOpenInviteMemberDialog, openInviteMemberDialog} = useOpenComponentStore()
     const [isOpen, setIsOpen] = useState(false)
     const [wsOpen, setWsOpen] = useState(false)
     const navigate = useNavigate()
-
+    
 
     return <>
     <ScrollArea className="lg:flex md:flex hidden flex-col gap-4 bg-light-100 w-1/4 p-2">
@@ -110,7 +112,14 @@ export default function WorkspaceLeftMenuBar(){
                 <Clock className="text-blue-500" size={15} /><div>Recent Projects</div>
             </div>}
             items={[
-                {name: "Redising website", icon: <PaintBucket className="text-purple-500" size={15} />}
+                {
+                    name: <div className="flex flex-col gap-1">
+                        <div className="text-sm">{ selectedProject?.name || ""}</div>
+                        <div className="text-[10px] opacity-80">{ selectedProject?.description || ""}</div>
+                    </div>, 
+                    icon: <Folder className="text-purple-500" size={20} />,
+                    callback: () => navigate(`/workspace/${selectedWorkspace?._id}/projects/${selectedProject._id}`)
+                }
             ]}
             />
 

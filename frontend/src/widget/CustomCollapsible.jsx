@@ -27,8 +27,9 @@ export default function CustomCollapsible({trigger, shortAction, sub, items}){
         <CollapsibleContent className="pl-2 text-sm flex flex-col gap-2 text-light-300">
             {sub}
             {items?.map(item => {
-                return  <div onClick={item.callback} className="flex p-1 rounded hover:bg-base-100 text-light-300 text-sm hover:cursor-pointer items-center gap-4">
-                    {item.icon}<div >{item.name}<div className="text-[12px]">{item.status ? "Active" : ""}</div></div>
+                return  <div onClick={item.callback} className="flex p-1 items-center rounded hover:bg-base-100 text-light-200 text-sm hover:cursor-pointer gap-2">
+                    <div>{item.icon}</div>
+                    <div>{item.name}<div className="text-[12px]">{item.status ? "Active" : ""}</div></div>
                 </div>
             })}
         </CollapsibleContent>
