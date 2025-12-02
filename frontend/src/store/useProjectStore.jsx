@@ -2,8 +2,9 @@ import { Axios } from "@/api/axiosInstance";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useAuthStore } from "./useAuthStore";
-import { errorToaster, successToaster } from "@/widget/toaster";
+import { errorToaster, successToaster, warningToaster } from "@/widget/toaster";
 import { useTeamStore } from "./useTeamStore";
+import { toast } from "sonner";
 
 
 export const useProjectStore = create(persist((set, get) => ({
@@ -11,6 +12,7 @@ export const useProjectStore = create(persist((set, get) => ({
     selectedProject: localStorage.getItem("lastActiveProject"),
     milestones: [],
     invitations: [],
+    favouriteProjects: [],
     pendingInvitationsList: [], //useAuthStore.getState().authUser?.invitations.filter(invite => invite.invitedBy.username == authUser.username && invite.status == "pending"),
     isCreatingProject: false,
     isGettingProject: false,
@@ -19,6 +21,7 @@ export const useProjectStore = create(persist((set, get) => ({
     isInvitingMember: false,
     isAcceptingInvitation: false,
     isRemovingMember: false,
+    isArchivingProject: false,
 
     setSelectedProject: (project) => {
         set({selectedProject: project})
@@ -48,7 +51,7 @@ export const useProjectStore = create(persist((set, get) => ({
         try {
             const res = await Axios.post("/api/project/edit", data)
             successToaster("Project edited Succesfully!", "", "X")
-            set({projects: projects.filter(project => project._id != res.data._id)})
+            set({projects: get().projects.filter(project => project._id != res.data._id)})
             set({projects: [...get().projects, res.data]})
             set({selectedProject: res.data})
         } catch (e) {
@@ -72,6 +75,7 @@ export const useProjectStore = create(persist((set, get) => ({
             set({isGettingProject: false})
         } 
     },
+
     getWorkspaceProjects: async (workspaceId) => {
         //to get all projects the workspace belongs to
         set({isGettingProject: true})
@@ -95,6 +99,44 @@ export const useProjectStore = create(persist((set, get) => ({
         } catch (e) {
             console.log("Error in deleting project", e)
         } 
+    },
+
+    favouriteProject: async (project) => {
+       try {
+        const exists = get().favouriteProjects.some(p => p._id == project._id)
+            if(exists) {
+                set({favouriteProjects: get().favouriteProjects.filter(p => p._id != project._id)})
+                return warningToaster("This project is removed from your favourite!", "", "X")
+            }
+            set({favouriteProjects: [...get().favouriteProjects, project]})
+            successToaster("This project is your favourite now!", "", "X")
+        } catch (e) {
+            console.log("Error in favouritinga a project", e)
+        }  
+    },
+
+    archiveProject: async ({project, status}) => {
+        set({isArchivingProject: true})
+       try {
+            if(project.status == "archive") {
+                const res = await Axios.post("/api/project/edit", {projectId: project._id, status: "active"})
+                set({projects: get().projects.map(p => {
+                    if(p._id == project._id) return {...p, status : "active"}
+                    return p
+                })})
+                return successToaster("Project is UnArchived!", "", "X")
+            }
+            const res = await Axios.post("/api/project/edit", {projectId: project._id, status})
+            set({projects: get().projects.map(p => {
+                if(p._id == project._id) return {...p, status : "archive"}
+                return p
+           })}) 
+            successToaster("the Project is Archived!", "", "X")
+        } catch (e) {
+            console.log("Error in archiving a project", e)
+        } finally {
+            set({isArchivingProject: false})
+        }
     },
 
     addMilestone: async (data) => {
@@ -194,6 +236,7 @@ export const useProjectStore = create(persist((set, get) => ({
             set({isRemovingMember: false})
         }
     },
+
 
 }),
 {

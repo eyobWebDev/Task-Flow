@@ -1,6 +1,6 @@
 import { Progress } from "@/components/ui/progress";
 import StackedAvatar from "./StackedAvatar";
-import { ArchiveIcon, ArrowUpRightFromSquare, CalendarClock, Edit2, FileClock, FolderOpen, Milestone, MilestoneIcon, MoreHorizontal, Pin, Trash2, User, Users } from "lucide-react";
+import { ArchiveIcon, ArchiveRestore, ArchiveXIcon, ArrowUpRightFromSquare, CalendarClock, Edit2, FileClock, FolderOpen, Heart, Milestone, MilestoneIcon, MoreHorizontal, Pin, Trash2, User, Users } from "lucide-react";
 import { useProjectStore } from "@/store/useProjectStore";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,10 +12,11 @@ import DeleteConsentDialog from "./DeleteConsentDialog";
 import { FormatDateRelative } from "@/utils/FormatDate";
 import { useOpenComponentStore } from "@/store/useOpenComponentStore";
 import EditProjectDrawer from "@/features/project/EditProjectDrawer";
+import { callOrReturn } from "@tiptap/core";
 
 
 export default function ProjectBox({project}) {
-    const {setSelectedProject, deleteProject, selectedProject} = useProjectStore()
+    const {setSelectedProject, archiveProject, favouriteProject} = useProjectStore()
     const {setOpenDeleteDialogConsentBox, setOpenEditProjectDrawer} = useOpenComponentStore()
     const [value, setValue] = useState(20)
     const navigate = useNavigate()
@@ -48,10 +49,10 @@ export default function ProjectBox({project}) {
                             {title: "Edit project", shortcut: <Edit2 />, callback: () => {
                                 setSelectedProject(project)
                                 setOpenEditProjectDrawer(true)
-
                             }},
-                            {title: "Pin Project", shortcut: <Pin />},
-                            {title: "Delete Project", shortcut: <Trash2 />, callback: () => setOpenDeleteDialogConsentBox(true)},
+                            {title: "Favourite Project", shortcut: <Heart />, callback: () => favouriteProject(project)},
+                            {title: project.status == "archive" ? "UnArchive project" : "Archive Project", 
+                                shortcut: project.status == "archive" ? <ArchiveRestore /> : <ArchiveXIcon />, callback: () => archiveProject({project, status: "archive"})},
                         ]
                         ]}
                         />

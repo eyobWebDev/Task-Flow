@@ -54,7 +54,7 @@ export default function WorkspaceNavbarRightElement(){
                 <Bell size={20} className="" />
                 {authUser.invitations.length > 0 && <CustomDot content={authUser.invitations.filter(invite => invite.status == "pending" && invite.username == authUser.username).length} />}
             </NavLink>
-            <MoreHorizontal size={25} className="p-1 rounded bg-light-400-hover" />
+  
             <CreateProjectDialog trigger={<Button className={`btn btn-sm`}>+ Create new project</Button>} />
         </div>
 }

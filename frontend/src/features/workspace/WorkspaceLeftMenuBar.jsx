@@ -10,7 +10,7 @@ import CircleProfileBadge from "@/widget/CircleProfileBadge";
 import CustomCollapsible from "@/widget/CustomCollapsible";
 import CustomTooltip from "@/widget/CustomTooltip";
 import CustomBadge from "@/widget/feature/CustomBadge";
-import { ActivitySquareIcon, ArrowDownWideNarrowIcon, ArrowLeft, CheckCircle2, ChevronDown, ChevronUp, Clock, Edit, Flag, Folder, FolderCheck, Heart, Home, icons, Inbox, LampDeskIcon, Menu, PaintBucket, PenSquareIcon, Pin, Plus, Projector, Search, Settings, User, UserCheck, UsersIcon } from "lucide-react";
+import { ActivitySquareIcon, Archive, ArchiveX, ArchiveXIcon, ArrowDownWideNarrowIcon, ArrowLeft, CheckCircle2, ChevronDown, ChevronUp, Clock, Edit, Flag, Folder, FolderCheck, Heart, Home, icons, Inbox, LampDeskIcon, Menu, PaintBucket, PenSquareIcon, Pin, Plus, Projector, Search, Settings, User, UserCheck, UsersIcon } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateProjectDialog from "../project/CreateProjectDialog";
@@ -21,14 +21,14 @@ import { useProjectStore } from "@/store/useProjectStore";
 export default function WorkspaceLeftMenuBar(){
     const {authUser} = useAuthStore()
     const {selectedWorkspace} = useWorkspaceStore()
-    const {selectedProject} = useProjectStore()
+    const {selectedProject, favouriteProjects, projects} = useProjectStore()
     const {setOpenInviteMemberDialog, openInviteMemberDialog} = useOpenComponentStore()
     const [isOpen, setIsOpen] = useState(false)
     const [wsOpen, setWsOpen] = useState(false)
     const navigate = useNavigate()
-    const navbarStyle = document.documentElement.getAttribute("data-theme") == "dark" ? "backdrop-blur-xl bg-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] p-6" : "backdrop-blur-xl bg-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] p-6" 
-    
+    const archivedProjects = projects?.length > 0 && projects.filter(project => project.status == "archive")
 
+    
     return <>
     <ScrollArea className={`lg:flex md:flex hidden bg-light-100 flex-col gap-4  w-1/4 p-2`}>
         <Collapsible
@@ -103,7 +103,7 @@ export default function WorkspaceLeftMenuBar(){
             ]} />
         
 
-        {/* Project collapsible */}
+        {/* Project collapsibles */}
         <div className="p-3 flex flex-col gap-3">
             <div className="text-[10px] text-muted">Projects</div>
 
@@ -129,19 +129,41 @@ export default function WorkspaceLeftMenuBar(){
             trigger={<div className="flex items-center gap-2">
                 <Heart className="text-red-500" size={15} /><div>Favourite Projects</div>
             </div>}
-            items={[
-                {name: "Redising website", icon: <PaintBucket className="text-purple-500" size={15} />}
-            ]}
+            items={
+                favouriteProjects.length > 0 ? favouriteProjects.map(project => {
+                    console.log("project", project);
+                    
+                    return {
+                        name:<div className="flex flex-col border-l-red-600 border-l-2 pl-3 gap-1">
+                                <div className="text-sm">{ project?.name || ""}</div>
+                                <div className="text-[10px] opacity-80">{ project?.description || ""}</div>
+                            </div>, 
+                        icon: "",
+                        callback: () => navigate(`/workspace/${selectedWorkspace?._id}/projects/${project._id}`)
+                    }
+                }) : []
+                
+            }
             />
 
-            {/* Pinned projects collapsible */}
+            {/* Archived projects collapsible */}
             <CustomCollapsible 
             trigger={<div className="flex items-center gap-2">
-                <Pin className="text-yellow-500" size={15} /><div>Pinned Projects</div>
+                <ArchiveX className="text-gray-500" size={15} /><div>Archived Projects</div>
             </div>}
-            items={[
-                {name: "Redising website", icon: <PaintBucket className="text-purple-500" size={15} />}
-            ]}
+            items={
+                archivedProjects.length > 0 ? archivedProjects.map(project => {
+                    return {
+                        name:<div className="flex flex-col border-l-gray-600 border-l-2 pl-3 gap-1">
+                                <div className="text-sm">{ project?.name || ""}</div>
+                                <div className="text-[10px] opacity-80">{ project?.description || ""}</div>
+                            </div>, 
+                        icon: "",
+                        callback: () => navigate(`/workspace/${selectedWorkspace?._id}/projects/${project._id}`)
+                    }
+                }) : []
+                
+            }
             />
         </div>
             

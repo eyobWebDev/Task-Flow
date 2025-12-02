@@ -1,4 +1,4 @@
-import { CheckCircleIcon, XCircle } from 'lucide-react';
+import { CheckCircleIcon, MessageSquareWarning, XCircle } from 'lucide-react';
 import { Navigate } from 'react-router-dom';
 import {toast} from 'sonner';
 
@@ -20,6 +20,17 @@ export const errorToaster = (header, description, label) => {
     toast(`${header}`, {
         description: description || "",
         icon: <XCircle className='text-red-400' /> ,
+        action: {
+            label: label || "",
+            onClick: () => console.log("Undo"),
+        },
+    })
+}
+
+export const warningToaster = (header, description, label) => {
+    toast(`${header}`, {
+        description: description || "",
+        icon: <MessageSquareWarning className='text-yellow-400' /> ,
         action: {
             label: label || "",
             onClick: () => console.log("Undo"),

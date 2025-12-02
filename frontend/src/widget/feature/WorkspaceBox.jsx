@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowUpRightFromSquareIcon, CircleArrowOutUpRightIcon, Edit2, Edit3, FolderOpen, HomeIcon, MoreHorizontal, ProjectorIcon, Settings, UsersIcon, Workflow } from "lucide-react";
+import { ArrowRight, ArrowUpRightFromSquareIcon, CircleArrowOutUpRightIcon, Edit2, Edit3, FolderArchive, FolderOpen, HomeIcon, MoreHorizontal, ProjectorIcon, Settings, UsersIcon, Workflow } from "lucide-react";
 import CustomMenuBar from "../CustomMenuBar";
 import StackedAvatar from "./StackedAvatar";
 import { Badge } from "@/components/ui/badge";
@@ -22,13 +22,13 @@ export default function WorkspaceBox({workspace}){
         await updateLastActive({workspaceId: workspace._id})
     }
 
-    return <><div onClick={handleClick} className="bg-light-300 flex flex-col justify-between rounded-2xl h-70 text-light-200">
+    return <><div className="bg-light-300 flex flex-col justify-between rounded-2xl h-70 text-light-200">
         <div className="flex flex-col p-4 gap-2">
+            
             <div className="flex justify-between">
-
                 {/* name and logo */}
                 <div className="flex items-center gap-3">
-                    <HomeIcon size={20} className="text-orange-200 p-1 rounded bg-orange-600" />
+                    <FolderArchive size={20} className="text-orange-200 p-1 rounded bg-orange-600" />
                     <div className="lg:text-2xl hover:cursor-pointer text-xl font-bold text">
                         {workspace.name}
                     </div>
@@ -50,8 +50,7 @@ export default function WorkspaceBox({workspace}){
             </div>
 
             {/* avatar badges */}
-            <div>
-                
+            <div>   
                 {workspace.members.length > 0 && <><div className="flex items-center gap-3"><div>
                     <StackedAvatar avatars={
                     workspace.members.slice(0, 3).map((member, i) => {   
@@ -66,7 +65,6 @@ export default function WorkspaceBox({workspace}){
                 <div className="text-sm text-muted">Quick stats </div>
                 <div className="flex flex-col p-2 gap-1">
                     <div className="flex gap-2 items-center"><FolderOpen size={20} /><div>Projects count - {workspace.projects?.length || 0}</div></div>
-                    
                 </div>
             </div>
 
@@ -74,10 +72,8 @@ export default function WorkspaceBox({workspace}){
 
         {/* User role badge */}
         <div className="bg-light-200 text-light-200 flex items-center justify-between p-2 rounded-b-2xl">
-            <div className="text-sm">
-                <Badge variant={`outline`}>Admin</Badge>
-            </div>
-            <Button className={`p-1 hover:cursor-pointer flex gap-3 items-center`}>Detail <ArrowRight /></Button>
+            <div></div>
+            <button onClick={handleClick} className={`btn btn-success btn-md`}>Detail <ArrowRight /></button>
         </div>
 
     </div>
