@@ -26,11 +26,10 @@ export const createWorkspace = async (req, res) => {
 export const getMyWorkspace = async (req, res) => {
     
     try {
-        console.log("req.user", req.user);
         const workspace = await Workspace.find({owner: req.user._id}).populate("owner", "username fullName profilePic email")
         .populate("members.user", "username fullName profilePic email")
         
-        res.status(200).json(workspace)
+        res.status(200).json({workspace})
     } catch (e) {
         console.log("Error in getting my workspace", e.message)
         res.status(500).json({message: "Intenal server error"})

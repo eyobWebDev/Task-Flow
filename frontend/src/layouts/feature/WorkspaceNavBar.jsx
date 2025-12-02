@@ -1,3 +1,4 @@
+import { navbarStyle } from "@/assets/styles/fetaure_style";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useProjectStore } from "@/store/useProjectStore";
@@ -13,7 +14,7 @@ export default function WorkspaceNavBar({rightElement}){
         const {selectedWorkspace} = useWorkspaceStore()
         const {selectedProject} = useProjectStore()
 
-    return <><div className="pl-3 sticky top-0 bg-base-100 p-1 z-20 pr-3 right-0 flex items-center justify-between">
+    return <><div className={`pl-3 sticky top-0 p-1 z-20 pr-3 right-0 flex ${navbarStyle} items-center justify-between`}>
 
         <NavLink to={`/workspace/${selectedWorkspace?._id}/projects`} className="flex hover:cursor-pointer h-10 items-center gap-2">
             <Menu className={`lg:hidden bg-transparent p-1 md:hidden flex`} />

@@ -9,6 +9,7 @@ import { useWorkspaceStore } from "@/store/useWorkspaceStore"
 export default function LeftbarWsCollapsible(){
     const [wsOpen, setWsOpen] = useState()
     const {myWorkspaces, selectedWorkspace} = useWorkspaceStore()
+    
 
     return  <Collapsible  open={wsOpen}
         onOpenChange={setWsOpen}

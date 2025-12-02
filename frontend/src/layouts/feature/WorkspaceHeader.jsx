@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 export default function WorkspaceHeader(){
     
 
-    return <div className="lg:p-5 z-10 bg-base-100 sticky top-0 p-2 flex flex-col gap-5">
+    return <div className="lg:p-5 z-10 sticky top-0 p-2 flex flex-col gap-5">
         <div className="flex items-center justify-between">
             <div className="lg:text-2xl font-bold text-xl">My Workspaces</div>
 

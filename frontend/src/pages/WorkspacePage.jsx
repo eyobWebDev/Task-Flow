@@ -6,6 +6,7 @@ import SpinAnimate from "@/widget/SpinAnimate";
 import { Loader2, Plus, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import "../assets/styles/home_page.css"
 
 
 export default function WorkspacePage(){
@@ -20,7 +21,7 @@ export default function WorkspacePage(){
 
     const style = currentBadge == "Grid" ? "grid lg:p-10 p-4 grid-cols-1 lg:grid-cols-3 md:grid-cols-2" : "flex lg:p-10 p-4 flex-col"
     
-    return <>
+    return <div className="w-[100%] relative home-page h-[100vh]">
         <WorkspaceHeader />
         { isGettingWorkspaces || isCreatingWorkspace ? <SpinAnimate text={`Getting Workspaces...`} />
          :
@@ -39,5 +40,5 @@ export default function WorkspacePage(){
                 }
             </div>
         }
-    </>
+    </div>
 }

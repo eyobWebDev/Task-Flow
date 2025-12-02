@@ -20,7 +20,10 @@ import InvitationsListView from "@/features/team/InvitationsListView";
 import { Bell } from "lucide-react";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 import CustomDot from "@/widget/CustomDot";
-
+import "../assets/styles/home_page.css"
+import { navbarStyle } from "@/assets/styles/fetaure_style";
+import CreateTaskDialog from "@/features/task/CreateTaskDialog";
+import InviteMemberDialog from "@/features/team/InviteMemberDialog";
 
 
 export default function ProjectDashBoardPage(){
@@ -32,7 +35,7 @@ export default function ProjectDashBoardPage(){
         getProjects()
     }, [selectedWorkspace])
 
-    return <div className="h-screen flex w-full">
+    return <div className="h-screen relative home-page flex w-full">
         <WorkspaceLeftMenuBar />
         
 
@@ -50,13 +53,6 @@ export default function ProjectDashBoardPage(){
                     </> } />
                 
                 <Route path="/:projectId" element={<ScrollArea className={`h-[100vh] w-full`}>
-                    <WorkspaceNavBar rightElement={
-                        <div className="flex items-center gap-2">
-                            <NavLink to={`/workspace/${selectedWorkspace?._id}/projects/invitations`} className="relative p-1 rounded bg-light-400-hover"><Bell size={20} className="" /> 
-                                {invitations.length > 0 && <CustomDot content={invitations.filter(invite => invite.status == "pending" && invite.username == authUser.username).length} />} 
-                            </NavLink>
-                        </div>
-                    } />
                     <ProjectDetailHeader />
                     <ProjectDetailPage />
                 </ScrollArea>} />

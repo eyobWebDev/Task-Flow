@@ -13,7 +13,7 @@ export default function CustomCollapsible({trigger, shortAction, sub, items}){
         className="flex flex-col gap-2">
 
         {/* header to show the workspace name etc */}
-        <div className="flex w-full bg-light-100 p-1 items-center justify-between">
+        <div className="flex w-full p-1 items-center justify-between">
             <CollapsibleTrigger className="flex hover:cursor-pointer text-sm text-muted items-center gap-2">
                 {trigger}
                 <div>

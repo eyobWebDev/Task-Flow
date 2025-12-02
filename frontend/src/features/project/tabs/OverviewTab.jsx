@@ -18,6 +18,7 @@ import { ActivitySquareIcon, ArchiveRestore, ArrowRight, ChartArea, CheckSquare,
 import EditProjectDrawer from "../EditProjectDrawer";
 import { useEffect, useState } from "react";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
+import { navbarStyle } from "@/assets/styles/fetaure_style";
 
 
 export default function OverviewTab(){
@@ -38,15 +39,24 @@ export default function OverviewTab(){
     return <div className="flex text-blue-100 flex-col gap-5">
         
         {/* header section */}
-        <div className="flex justify-between rounded p-3 bg-base-300">
+        <div className={`flex justify-between rounded p-2 ${navbarStyle}`}>
 
             {/* project name and info */}
-            <div className="flex flex-col gap-3">
-                <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-3">
-                        <div className="text-2xl font-semibold">{selectedProject.name || "Project name"}</div> 
-                        <StatusBadge color={color} status={selectedProject.status} />
+            <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-1">  
+                    <div className="flex items-center gap-5">
+                        <div className="flex items-center gap-3">
+                            <div className="text-2xl font-semibold">{selectedProject.name || "Project name"}</div> 
+                            <StatusBadge color={color} status={selectedProject.status} />
+                        </div>
+
+                        <div className="flex gap-3">
+                            <div className=""><EditProjectDrawer trigger={<CustomTooltip trigger={<Edit className="p-1 tras-bg-hover rounded" />} text={'Edit project'} />} /></div>
+                            <div><CustomTooltip trigger={<ArchiveRestore className="p-1 tras-bg-hover rounded" />} text={'Archive project'} /></div>
+                        </div>
                     </div>
+
+                    {/* meta info about the project*/}
                     <div className="lg:text-[11px] text-[8px] opacity-60 text-blue-200 flex gap-4 items-center">
                         <div>Created by: {selectedProject.createdBy.username}</div>
                         <div>Last Updated: {FormatDateRelative(selectedProject.updatedAt)}</div>
@@ -58,12 +68,7 @@ export default function OverviewTab(){
                 <div className="text-sm opacity-85">
                     {selectedProject.description}
                 </div>
-            </div>
-
-            <div className="flex gap-3">
-                <div className=""><EditProjectDrawer trigger={<CustomTooltip trigger={<Edit className="p-1 tras-bg-hover rounded" />} text={'Edit project'} />} /></div>
-                <div><CustomTooltip trigger={<ArchiveRestore className="p-1 tras-bg-hover rounded" />} text={'Archive project'} /></div>
-            </div>
+            </div> 
         </div>
 
         {/* Summary card section */}

@@ -16,6 +16,7 @@ export const useWorkspaceStore = create(persist((set, get) => ({
     setSelectedWorkspace: (workspace) => {
         set({selectedWorkspace: workspace})
     },
+    
     getWorkspaces: async () => {
         //to get all workspace the user belongs
         const authUser = useAuthStore.getState().authUser
@@ -23,8 +24,8 @@ export const useWorkspaceStore = create(persist((set, get) => ({
 
         try {
             const res = await Axios.get("/api/workspace/my-workspace")
-            set({myWorkspaces: res.data})
-            console.log(get().selectedWorkspace);
+            
+            set({myWorkspaces: res.data.workspace})
             
         } catch (e) {
             console.log("Error in getting Workspaces", e)
@@ -32,9 +33,11 @@ export const useWorkspaceStore = create(persist((set, get) => ({
             set({isGettingWorkspace: false})
         } 
     },
+
     setCurrentBadge: (data) => {
         set({currentBadge: data})
     },
+
     createWorkspace: async (data) => {
         //send request to the backend to create 
         set({isCreatingWorkspace: true})

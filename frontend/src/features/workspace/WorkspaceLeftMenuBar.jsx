@@ -26,17 +26,18 @@ export default function WorkspaceLeftMenuBar(){
     const [isOpen, setIsOpen] = useState(false)
     const [wsOpen, setWsOpen] = useState(false)
     const navigate = useNavigate()
+    const navbarStyle = document.documentElement.getAttribute("data-theme") == "dark" ? "backdrop-blur-xl bg-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] p-6" : "backdrop-blur-xl bg-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] p-6" 
     
 
     return <>
-    <ScrollArea className="lg:flex md:flex hidden flex-col gap-4 bg-light-100 w-1/4 p-2">
+    <ScrollArea className={`lg:flex md:flex hidden bg-light-100 flex-col gap-4  w-1/4 p-2`}>
         <Collapsible
             open={isOpen}
             onOpenChange={setIsOpen}
             className="flex flex-col gap-2">
 
             {/* header to show the workspace name etc */}
-            <div className="flex z-10 w-full sticky top-0 bg-light-100 p-2 items-center justify-between">
+            <div className="flex z-10 w-full sticky top-0 p-2 items-center justify-between">
                 <CollapsibleTrigger className="flex hover:cursor-pointer items-center gap-2">
                     <CircleProfileBadge url={authUser.profilePic} fallback={authUser.username[0]} />
                     <div className="text-sm text-light-100">

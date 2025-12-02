@@ -12,7 +12,6 @@ import SpinAnimate from "@/widget/SpinAnimate";
 export default function ProjectsListView(){
     const {projects, isGettingProject} = useProjectStore()
 
-    console.log("projects", projects);
     if(isGettingProject){
         return <SpinAnimate text={`Getting all the projects...`} />
     }

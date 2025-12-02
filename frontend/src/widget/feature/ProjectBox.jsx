@@ -24,8 +24,6 @@ export default function ProjectBox({project}) {
     const user = project.members.find(member => member.userId.username == authUser.username)
     const [progWidth, setprogWidth] = useState(`w-${value}`)
     const statusStyle = project.status == "active" ? "bg-green-500" : project.status == "on-Hold" ? "bg-orange-500" : project.status == "completed" ? "bg-blue-500" : "bg-gray-500"
-    console.log(progWidth);
-    
     
     
     
@@ -50,7 +48,7 @@ export default function ProjectBox({project}) {
                             {title: "Edit project", shortcut: <Edit2 />, callback: () => {
                                 setSelectedProject(project)
                                 setOpenEditProjectDrawer(true)
-                                console.log("from project box",selectedProject.name)
+
                             }},
                             {title: "Pin Project", shortcut: <Pin />},
                             {title: "Delete Project", shortcut: <Trash2 />, callback: () => setOpenDeleteDialogConsentBox(true)},

@@ -11,32 +11,54 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import InviteMemberDialog from "../team/InviteMemberDialog";
 import MembersTab from "./tabs/MembersTab";
 import CreateTaskDialog from "../task/CreateTaskDialog";
+import WorkspaceNavBar from "@/layouts/feature/WorkspaceNavBar";
+import { NavLink } from "react-router-dom";
+import { Bell } from "lucide-react";
+import CustomDot from "@/widget/CustomDot";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useProjectStore } from "@/store/useProjectStore";
+import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 
 export default function ProjectDetailHeader(){
     const [active, setActive] = useState("overview")
+    const {authUser}= useAuthStore()
+    const {getProjects, selectedProject, invitations} = useProjectStore()
+    const {selectedWorkspace} = useWorkspaceStore()
+    const tabTriggerStyle = "lg:text-sm md:text-sm text-xs border-r-2 border-b-0 border-r-white/30 text-white/70  rounded-none hover:cursor-pointer pl-2 pr-2"
+    const activeTabTriggerStyle = "border-t-2 border-t-blue-500 text-blue-100 tras-bg"
 
-    return <div className="lg:pl-7 lg:pt-2 p-3">
+    return <div className="">
         
         <Tabs value={active} onValueChange={setActive} defaultValue="overview">
-           <div className="sticky lg:min-h-10 min-h-20 z-10 bg-base-100 top-12 flex flex-col lg:gap-5 gap-2"> 
-                <TabsList className={`flex w-full flex-wrap justify-between`}>
-                    <div className="flex flex-wrap items-center lg:gap-5 gap-1">
-                        <TabsTrigger className={`p-1 lg:scale-100 scale-80 rounded hover:cursor-pointer tras-bg pl-2 pr-2 ${active == "overview" && "text-blue-500 border-b-2 border-b-blue-500" }`} value="overview">Overview</TabsTrigger>
-                        <TabsTrigger className={`p-1 lg:scale-100 scale-70 rounded hover:cursor-pointer tras-bg pl-2 pr-2 ${active == "tasks" && "text-blue-500 border-b-2 border-b-blue-500" }`} value="tasks">Tasks</TabsTrigger>
-                        <TabsTrigger className={`p-1 lg:scale-100 scale-80 rounded hover:cursor-pointer tras-bg pl-2 pr-2 ${active == "milestones" && "text-blue-500 border-b-2 border-b-blue-500" }`} value="milestones">Milestones</TabsTrigger>
-                        <TabsTrigger className={`p-1 lg:scale-100 scale-80 rounded hover:cursor-pointer tras-bg pl-2 pr-2 ${active == "members" && "text-blue-500 border-b-2 border-b-blue-500" }`} value="members">Members</TabsTrigger>
-                        <TabsTrigger className={`p-1  rounded hover:cursor-pointer tras-bg pl-2 pr-2 ${active == "settings" && "text-blue-500 border-b-2 border-b-blue-500" }`} value="settings">Settings</TabsTrigger>
-                    </div>
 
-                    <div className="lg:flex md:flex hidden text-sm items-center ">
-                        <CreateTaskDialog trigger={<Button className={`text-sm scale-80 tras-bg-hover btn-outline`} variant={`outline`}>+ Add Task</Button>} />
-                        <InviteMemberDialog trigger={<Button className={`text-sm scale-80 tras-bg-hover btn-outline`} variant={`outline`}>Invite Members</Button>} />
-                    </div>
+            {/* Header for the detail project page */}
+            <div className="sticky bg-base-200 z-10 top-0 flex flex-col gap-5 drop-shadow-2xl"> 
+                {/* contains the workspace navbar */}
+                <div className="">
+                    <WorkspaceNavBar rightElement={
+                        <div className="flex items-center gap-2">
+                            <NavLink to={`/workspace/${selectedWorkspace?._id}/projects/invitations`} className="relative p-1 rounded bg-light-400-hover"><Bell size={20} className="" /> 
+                                {invitations.length > 0 && <CustomDot content={invitations.filter(invite => invite.status == "pending" && invite.username == authUser.username).length} />} 
+                            </NavLink>
+                            <div className="lg:flex hidden text-sm items-center ">
+                                <CreateTaskDialog trigger={<Button className={`text-sm scale-80 tras-bg-hover btn-outline`} variant={`outline`}>+ Add Task</Button>} />
+                                <InviteMemberDialog trigger={<Button className={`text-sm scale-80 tras-bg-hover btn-outline`} variant={`outline`}>Invite Members</Button>} />
+                            </div>
+                        </div>
+                    } />
+                </div>
 
+                {/* all the tab links */}
+                <TabsList className={`grid w-full grid-cols-5`}>
+                    <TabsTrigger className={`${tabTriggerStyle} ${active == "overview" && activeTabTriggerStyle}`} value="overview">Overview</TabsTrigger>
+                    <TabsTrigger className={`${tabTriggerStyle} ${active == "tasks" && activeTabTriggerStyle}`}  value="tasks">Tasks</TabsTrigger>
+                    <TabsTrigger className={`${tabTriggerStyle} ${active == "milestones" && activeTabTriggerStyle}`}  value="milestones">Milestones</TabsTrigger>
+                    <TabsTrigger className={`${tabTriggerStyle} ${active == "members" && activeTabTriggerStyle}`}  value="members">Members</TabsTrigger>
+                    <TabsTrigger className={`${tabTriggerStyle} ${active == "settings" && activeTabTriggerStyle}`}  value="settings">Settings</TabsTrigger>
                 </TabsList>
-           </div>
+            </div>
 
-            <ScrollArea className={`h-[100vh] p-1`}>
+            <ScrollArea className={`h-[100vh] lg:pl-4 lg:pt-2 p-1`}>
                 <TabsContent value="overview">
                     <OverviewTab />
                 </TabsContent>
