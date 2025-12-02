@@ -22,7 +22,7 @@ import { navbarStyle } from "@/assets/styles/fetaure_style";
 
 
 export default function OverviewTab(){
-    const {selectedProject, inviteMember}= useProjectStore()
+    const {selectedProject, archiveProject}= useProjectStore()
     const {selectedWorkspace} = useWorkspaceStore()
     
     const completedMilestone = selectedProject?.milestones.length > 0 && selectedProject.milestones.filter(ms => ms.isComplete == true)
@@ -52,7 +52,7 @@ export default function OverviewTab(){
 
                         <div className="flex gap-3">
                             <div className=""><EditProjectDrawer trigger={<CustomTooltip trigger={<Edit className="p-1 tras-bg-hover rounded" />} text={'Edit project'} />} /></div>
-                            <div><CustomTooltip trigger={<ArchiveRestore className="p-1 tras-bg-hover rounded" />} text={'Archive project'} /></div>
+                            <div onClick={() => archiveProject({project: selectedProject, status: "archive"})}><CustomTooltip trigger={<ArchiveRestore className="p-1 tras-bg-hover rounded" />} text={'Archive project'} /></div>
                         </div>
                     </div>
 
@@ -83,7 +83,7 @@ export default function OverviewTab(){
             elements={<div className="flex text-xs gap-2 w-full items-center">
                 <div>{completedTasks.length || 0}/{selectedProject?.tasks.length}</div>
                 <Progress className={``} value={taskProgressValue} />
-                <div>{taskProgressValue || 0}%</div>
+                <div>{taskProgressValue.toFixed(2) || 0}%</div>
             </div>}
             />
             
@@ -96,7 +96,7 @@ export default function OverviewTab(){
             elements={<div className="flex gap-2 text-xs w-full items-center">
                 <div className="flex gap-2">{completedMilestone.length || 0}/{selectedProject?.milestones.length}</div>
                 <Progress className={``} value={milestoneProgressValue} />
-                <div>{milestoneProgressValue || 0}%</div>
+                <div>{milestoneProgressValue.toFixed(2) || 0}%</div>
             </div>}
             />
 

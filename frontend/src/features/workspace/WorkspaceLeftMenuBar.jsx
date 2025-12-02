@@ -37,7 +37,7 @@ export default function WorkspaceLeftMenuBar(){
             className="flex flex-col gap-2">
 
             {/* header to show the workspace name etc */}
-            <div className="flex z-10 w-full sticky top-0 p-2 items-center justify-between">
+            <div className="flex z-10 w-full sticky top-0 bg-light-100 p-2 items-center justify-between">
                 <CollapsibleTrigger className="flex hover:cursor-pointer items-center gap-2">
                     <CircleProfileBadge url={authUser.profilePic} fallback={authUser.username[0]} />
                     <div className="text-sm text-light-100">

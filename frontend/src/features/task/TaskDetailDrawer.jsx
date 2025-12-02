@@ -42,7 +42,7 @@ export default function TaskDetailDrawer({trigger}){
 
     return <Drawer direction='right' open={open} onOpenChange={setOpen}>
         <DrawerTrigger>{trigger}</DrawerTrigger>
-        <DrawerContent className={`lg:min-w-2/3 p-4 h-full text-blue-100 lg:rounded-l-2xl rounded-l-xl min-w-11/12 bg-light-100`} forceMount>
+        <DrawerContent className={`lg:min-w-2/3 pointer-events-none p-4 h-full text-blue-100 lg:rounded-l-2xl rounded-l-xl min-w-11/12 bg-light-100`} forceMount>
         <ScrollArea className={`h-[100vh] overflow-x-scroll`}>
 
             <DrawerHeader className={`sticky top-0 z-10 bg-light-100`}>
@@ -141,7 +141,7 @@ export default function TaskDetailDrawer({trigger}){
                 <div className="flex flex-col gap-1">
                     <div className="text-[10px] opacity-70">Due Date</div>
                     <div className="flex items-center gap-4">
-                        <input className="input-sm input" value={dueDate} onChange={(e) => setDueDate(e.target.value)} type="date" />
+                        <input className="input-sm z-auto input" value={dueDate} onChange={(e) => setDueDate(e.target.value)} type="date" />
                     </div>
                 </div>
                 
