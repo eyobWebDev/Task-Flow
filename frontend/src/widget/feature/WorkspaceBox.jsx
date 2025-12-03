@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowUpRightFromSquareIcon, CircleArrowOutUpRightIcon, Edit2, Edit3, FolderArchive, FolderOpen, HomeIcon, MoreHorizontal, ProjectorIcon, Settings, UsersIcon, Workflow } from "lucide-react";
 import CustomMenuBar from "../CustomMenuBar";
 import StackedAvatar from "./StackedAvatar";
@@ -12,8 +11,9 @@ import { useProjectStore } from "@/store/useProjectStore";
 export default function WorkspaceBox({workspace}){
     const {setSelectedWorkspace} = useWorkspaceStore()
     const {updateLastActive} = useAuthStore()
-    const {getWorkspaceProjects} = useProjectStore()
+    const {getWorkspaceProjects, projects} = useProjectStore()
     const navigate = useNavigate()
+    const projectCount = projects.filter(project => project.workspaceId == workspace._id).length
 
     const handleClick = async () => {
         setSelectedWorkspace(workspace)
@@ -64,7 +64,7 @@ export default function WorkspaceBox({workspace}){
             <div className="flex flex-col p-2">
                 <div className="text-sm text-muted">Quick stats </div>
                 <div className="flex flex-col p-2 gap-1">
-                    <div className="flex gap-2 items-center"><FolderOpen size={20} /><div>Projects count - {workspace.projects?.length || 0}</div></div>
+                    <div className="flex gap-2 items-center"><FolderOpen size={20} /><div>Projects count - {projectCount}</div></div>
                 </div>
             </div>
 

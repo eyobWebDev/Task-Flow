@@ -1,5 +1,6 @@
 import { navbarStyle } from "@/assets/styles/fetaure_style";
 import { Button } from "@/components/ui/button";
+import MobileWorkspaceLeftMenuBarDrawer from "@/features/workspace/MobileWorkspaceLeftMenuBarDrawer";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useProjectStore } from "@/store/useProjectStore";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
@@ -17,7 +18,7 @@ export default function WorkspaceNavBar({rightElement}){
     return <><div className={`pl-3 sticky top-0 p-1 z-20 pr-3 right-0 flex ${navbarStyle} items-center justify-between`}>
 
         <NavLink to={`/workspace/${selectedWorkspace?._id}/projects`} className="flex hover:cursor-pointer h-10 items-center gap-2">
-            <Menu className={`lg:hidden bg-transparent p-1 md:hidden flex`} />
+            <MobileWorkspaceLeftMenuBarDrawer trigger={<Menu className={`lg:hidden bg-transparent p-1 md:hidden flex`} />} />
             <HomeIcon size={20} className="text-orange-200 p-1 rounded bg-orange-600" />
 
             <div className="text-light-300 flex gap-1 items-center text-sm">

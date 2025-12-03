@@ -18,7 +18,7 @@ import { useOpenComponentStore } from "@/store/useOpenComponentStore";
 import InviteMemberDialog from "../team/InviteMemberDialog";
 import { useProjectStore } from "@/store/useProjectStore";
 
-export default function WorkspaceLeftMenuBar(){
+export default function WorkspaceLeftMenuBar({state}){
     const {authUser} = useAuthStore()
     const {selectedWorkspace} = useWorkspaceStore()
     const {selectedProject, favouriteProjects, projects} = useProjectStore()
@@ -30,7 +30,7 @@ export default function WorkspaceLeftMenuBar(){
 
     
     return <>
-    <ScrollArea className={`lg:flex md:flex hidden bg-light-100 flex-col gap-4  w-1/4 p-2`}>
+    <ScrollArea className={`lg:flex md:flex ${state ?  "w-[100%]" : "hidden w-1/4"} bg-light-100 flex-col gap-4 p-2`}>
         <Collapsible
             open={isOpen}
             onOpenChange={setIsOpen}
