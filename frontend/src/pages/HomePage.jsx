@@ -13,17 +13,24 @@ export default function HomePage() {
 
     return <>
      
-     <div className="w-[100%] relative home-page h-[100vh]">
+     <div className="w-[100%] relative h-[100vh]">
         <NavBar />
-        <div className="lg:pl-70 lg:pr-70 p-5 flex flex-col gap-6">
-            <div className="flex-col gap-5 mt-15 flex">
-            <div className="lg:text-6xl text-4xl opacity-95 font-bold">TaskFlow</div>
-            <div className="lg:text-3xl text-2xl opacity-75 font-bold">Full Project & Team Management System</div>
-            <div className="lg:text-[20px] text-[10px] opacity-65 mt-3">A productivity tool for teams with: Boards (Trello-style), Team collaboration, Real-time updates, Messaging (like Slack), Permissions & roles, Task assignment & tracking, Notifications.</div>
+
+        <div className="h-full flex-wrap flex items-center justify-around">
+            <div className="lg:w-1/2 md:w-1/2 w-full p-4 flex flex-col gap-6">
+                <div className="flex-col gap-5 mt-15 flex">
+                <div className="lg:text-6xl text-4xl opacity-95 font-bold">TaskFlow</div>
+                <div className="lg:text-3xl text-2xl opacity-75 font-bold">Full Project & Team Management System</div>
+                <div className="lg:text-[20px] text-[13px] opacity-65 mt-3">A productivity tool for teams with: Boards (Trello-style), Team collaboration, Real-time updates, Messaging (like Slack), Permissions & roles, Task assignment & tracking, Notifications.</div>
+                </div>
+
+                <div className="mt-3">
+                    <button onClick={() => navigate("/auth/login")} className={`btn btn-md btn-primary transition-all duration-500 hover:scale-110 btn-wide`}>Get started <ArrowRight /></button>
+                </div>
             </div>
 
-            <div>
-                <Button onClick={() => navigate("/auth/login")} className={`w-30 mt-5 p-7  scale-btn cursor-pointer cta-btn bg-[${primary}]`}>Get started <ArrowRight /></Button>
+            <div className="border w-1/2">
+                
             </div>
         </div>
 
